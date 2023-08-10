@@ -1,0 +1,48 @@
+<html>
+<head>
+	<title>💹Currency Converter💵 by Raj </title>
+	<style>
+		* {font-size:40px;}
+		h1 {background-color:black; color:white; width:40%; border-radius:50px;}
+		body {background-color:lightblue;}
+	</style>
+	<script>
+		function convert(event)
+		{
+			event.preventDefault();
+			let amt = document.getElementById("amt");
+			let ans = document.getElementById("ans");
+
+			let url = "https://api.exchangerate-api.com/v4/latest/USD";
+			fetch(url)
+			.then(res => res.json())
+			.then(data => {
+				let dollar = data["rates"]["INR"];
+				let x = parseFloat(amt.value);
+				let y = x * dollar;
+				ans.innerHTML = "\u20B9" + y.toFixed(2);
+			}) 
+			.catch(err => ans.innerHTML = "issue " + err);
+		}
+
+		function getmsg() {
+			// Define your getmsg function logic here, or remove the calls if unnecessary.
+		}
+
+		
+	</script>
+</head>
+<body>
+	<center>
+		<h1> 💵LIVE CURRENCY CONVERTER💵 </h1>
+		<h1>💵💵💵💵💵💵💵💵</h1>
+		<form onsubmit="convert(event)">
+			<input type="number" step="any" placeholder="enter amt in $$" id="amt"/>
+			<br/><br/>
+			<input type="submit" value="convert" />
+		</form>
+		<h1 id="ans"></h1>
+		<h1>💵💵💵💵💵💵💵💵</h1>
+	</center>
+</body>
+</html>
